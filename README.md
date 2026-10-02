@@ -5,13 +5,11 @@ Store), `/privacy`, and `/support`.
 
 ## Before publishing
 
-Replace the placeholders:
+The App Store links already use the app's ID (6818603832). Replace the support email
+placeholder:
 
 ```sh
 cd docs
-# Your App Store app ID: the number in App Store Connect > App Information > Apple ID.
-grep -rl 0000000000 . | xargs sed -i '' 's/0000000000/YOUR_APP_ID/g'
-# Your support email.
 grep -rl support@example.com . | xargs sed -i '' 's/support@example.com/you@yourdomain.com/g'
 ```
 
