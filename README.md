@@ -5,13 +5,8 @@ Store), `/privacy`, and `/support`.
 
 ## Before publishing
 
-The App Store links already use the app's ID (6818603832). Replace the support email
-placeholder:
-
-```sh
-cd docs
-grep -rl support@example.com . | xargs sed -i '' 's/support@example.com/you@yourdomain.com/g'
-```
+The App Store links already use the app's ID (6818603832), and the support email is
+support@duodoodles.fun.
 
 Add Apple's official badge: download "Download on the App Store" (black, SVG) from
 https://developer.apple.com/app-store/marketing/guidelines/ and save it as
@@ -19,11 +14,28 @@ https://developer.apple.com/app-store/marketing/guidelines/ and save it as
 
 ## Publishing with GitHub Pages
 
-1. Push this repo to GitHub.
-2. Go to the repo's Settings > Pages > Build and deployment, choose "Deploy from a branch",
-   pick your branch, and set the folder to `/docs`.
-3. The site appears at `https://<username>.github.io/<repo>/`. For a custom domain, add it
-   in the same settings page (GitHub creates the `CNAME` file).
+The site lives in the app repo's `docs/` folder and is published to its own repo,
+https://github.com/sapsley/duo-doodles-fun, with `docs/` as that repo's root. After
+committing site changes in the app repo, publish them from the app repo's root with:
 
-In App Store Connect, use `…/privacy/` as the Privacy Policy URL and `…/support/` as the
-Support URL. `…/` works as the Marketing URL.
+```sh
+git subtree push --prefix=docs site main
+```
+
+(`site` is the git remote for the site repo.)
+
+One-time setup:
+
+1. In the site repo, go to Settings > Pages > Build and deployment, choose "Deploy from a
+   branch", and pick `main` with the `/ (root)` folder.
+2. Under Custom domain, enter `duodoodles.fun` (already in `CNAME`), and turn on
+   Enforce HTTPS once GitHub has issued the certificate.
+3. At your domain registrar, add these DNS records for `duodoodles.fun`:
+   - `A` records: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+   - `AAAA` records: `2606:50c0:8000::153`, `2606:50c0:8001::153`, `2606:50c0:8002::153`, `2606:50c0:8003::153`
+   - `CNAME` for `www` pointing to `<username>.github.io`
+   Leave the registrar's `MX` records alone, so the mailbox keeps working.
+
+In App Store Connect, use `https://duodoodles.fun/privacy/` as the Privacy Policy URL and
+`https://duodoodles.fun/support/` as the Support URL. `https://duodoodles.fun/` works as the
+Marketing URL.
