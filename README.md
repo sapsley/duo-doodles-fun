@@ -1,4 +1,4 @@
-# Duo Doodles website
+# Twodles website
 
 A static site for GitHub Pages: the landing page, `/download` (a short link to the App
 Store), `/privacy`, and `/support`.
